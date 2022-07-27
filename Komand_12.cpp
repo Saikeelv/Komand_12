@@ -12,7 +12,7 @@
 #include <cmath>
 #include <vector>
 using namespace std;
-//êëàññ äëÿ ÷òåíèÿ ôàéëîâ
+//класс для чтения файлов
 class Read {
 private:
 	double cir;
@@ -36,13 +36,13 @@ public:
 	double round() const { return roun; }
 	double solid() const { return soli; }
 };
-//ïåðåãðóçêà âûâîäà
+//перегрузка вывода
 ostream& operator << (ostream& out, const Read& a)
 {
 	out << a.number() << "\t" << a.area() << "\t " << a.xm() << "\t" << a.ym() << "\t " << a.circ() << "\t " << a.ar() << "\t " << a.round() << "\t " << a.solid();
 	return out;
 }
-//ïåðåãðóçêà ââîäà
+//перегрузка ввода
 istream& operator >> (istream& in, Read& a)
 {
 	double ar;
@@ -57,13 +57,13 @@ istream& operator >> (istream& in, Read& a)
 	a = { number, area, xm, ym, circ, ar, round,solid };
 	return in;
 }
-//ñîçäåì âåêòîð èìåí ôàéëîâ èç óêàçàííîé ïàïêè
+//создем вектор имен файлов из указанной папки
 vector<string> Filename()
 {
 	setlocale(LC_CTYPE, "rus");
 	vector<string> name;
-	DIR* mydir = opendir("C:/Users/User/Desktop/summ practics/files"); // íàïèøè àäðåñ ïàïêè, â êîòîðîé õðàíÿòñÿ ôàéëû(òîëüêî ôàéëû)
-	//òàê æå âñå ýòè ôàéëû äîëæíû íàõîäèòüñÿ â îäíîé ïàïêå ñ ôàéëîì .ñðð(òîåñòü áóäåò äâå ïàïêè)
+	DIR* mydir = opendir("C:/Users/User/Desktop/summ practics/files"); // напиши адрес папки, в которой хранятся файлы(только файлы)
+	//так же все эти файлы должны находиться в одной папке с файлом .срр(тоесть будет две папки)
 	if (mydir == NULL) {
 		perror("opendir");
 	}
@@ -80,8 +80,8 @@ vector<string> Filename()
 int main()
 {
 
-	//ôàéëû äîëæíû õðàíèòüñÿ â òîé æå ïàïêå, ÷òî è ôàéë .ñðð
-	//â íàøåì ñëó÷àå â ïàïêå ðåïîçèòîðèÿ
+	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
+		//в нашем случае в папке репозитория
 	vector<string> name;
 	name = Filename();
 	name.erase(name.begin());
@@ -96,17 +96,16 @@ int main()
 	{
 		ifstream fin{ name[i] };
 		if (!fin) { cout << "FILE ERROR"; return 0; }
-		vector<Read> a;//ñîçäàå âåêòîð â êîòîðîì áóäåò õðàíèòüñÿ ïîëíûé ôàéë
+		vector<Read> a;//создае вектор в котором будет храниться полный файл
 		string line;
-		getline(fin, line);//ïîëó÷àåì ïîñòðî÷íî ôàéë
+		getline(fin, line);//получаем построчно файл
 		for (Read x; fin >> x; ) a.push_back(x);
 
-
-		int n = 5; //êîëëè÷åñòâî ñòîëáöîâ â ìàññèâå
-		double** array = new double* [a.size()]; //ñîçäàíèå äâóìåðíîãî ìàññèâà, êîëâî ñòðîê = ðàçìåðó âåêòîðà
+		int n = 5; //колличество столбцов в массиве
+		double** array = new double* [a.size()]; //создание двумерного массива, колво строк = размеру вектора
 		for (int i = 0; i < a.size(); i++) array[i] = new double[n];
 
-		for (int i = 0; i < a.size(); i++)//êîïèðóåì â äâóìåðíûé ìàññèâ íåîáõîäèìûå ñòîëáöû èç âåêòîðà
+		for (int i = 0; i < a.size(); i++)//копируем в двумерный массив необходимые столбцы из вектора
 		{
 			array[i][0] = a[i].number();
 			array[i][1] = a[i].area();
@@ -115,7 +114,7 @@ int main()
 			array[i][4] = a[i].ar();
 
 		}
-		//âûâîä ïîëó÷åííîãî ìàññèâà íà ýêðàí
+		//вывод полученного массива на экран
 		/*
 		for(int i=0; i<a.size(); i++)
 		{
@@ -124,10 +123,10 @@ int main()
 		}
 		*/
 
-		//ïóíêò b
+		//пункт b
 
 		double use = (((dmax + dmin) / 2) * ((dmax + dmin) / 2)) / 8;
-		//ñîçäàíèå è çàïîëíåíèå ïðîìåæóòî÷íîãî âåêòîðà ñ äàííûìè èç çàäàíèÿ 1.á
+		//создание и заполнение промежуточного вектора с данными из задания 1.б
 		vector<vector<double>> prom_array;
 		vector<double> tmp;
 		for (int i = 0; i < a.size(); i++)
@@ -142,7 +141,7 @@ int main()
 				}
 
 		}
-		//âûâîä ïðîìåæóòî÷íîãî âåêòîðà
+		//вывод промежуточного вектора
 		/*
 		for(int i=0; i<prom_array.size(); i++)
 		{
@@ -158,8 +157,8 @@ int main()
 
 		*/
 
-		//ïóíêò ñ
-		//âàðèàíò ìàòðèöû ñàìïëå
+		//пункт с
+	//вариант матрицы сампле
 		double** array_var1_sample = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++) array_var1_sample[i] = new double[prom_array.size()];
 
@@ -177,7 +176,7 @@ int main()
 
 
 
-		cout << "The matrix of distances for first 30 points:\n ";
+		cout << "The matrix of distances for first 10 points:\n ";
 		for (int i = 0; i < 10; i++)
 		{
 			for (int j = 0; j < 10; j++)
@@ -187,7 +186,7 @@ int main()
 			}
 			cout << "\n";
 		}
-		//âàðèàíò ìàòðèöû 1
+		//вариант матрицы 1
 		int count = 0;
 		double** array_var1 = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++) array_var1[i] = new double[prom_array.size()];
@@ -236,7 +235,7 @@ int main()
 			cout << "\n";
 		}
 	*/
-	//âàðèàíò ìàòðèöû 2
+	//вариант матрицы 2
 		double** array_var2 = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++) array_var2[i] = new double[prom_array.size()];
 
@@ -287,17 +286,17 @@ int main()
 
 
 		//////////////////////////////////////////
-	//ÏÓÍÊÒ 2 - ÏÎËÈÍÀ
-	// ÍÀÇÂÀÍÈÅ ÄÂÓÌÅÐÍÎÃÎ ÌÀÑÑÈÂÀ-ÂÅÊÒÎÐÀ:array_var1
-	// ÐÀÇÌÅÐ ÍÀÕÎÄÈÒÑß ÂÎÒ ÒÀÊ: prom_array.size()
+	//ПУНКТ 2 - ПОЛИНА
+	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var1
+	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
 
 
 
 
 
-	//ÏÓÍÊÒ 3 - ËÅÍÀ
-	// ÍÀÇÂÀÍÈÅ ÄÂÓÌÅÐÍÎÃÎ ÌÀÑÑÈÂÀ-ÂÅÊÒÎÐÀ:array_var2
-	// ÐÀÇÌÅÐ ÍÀÕÎÄÈÒÑß ÂÎÒ ÒÀÊ: prom_array.size()
+	//ПУНКТ 3 - ЛЕНА
+	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var2
+	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
 
 
 
