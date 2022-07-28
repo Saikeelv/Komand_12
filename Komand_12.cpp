@@ -125,7 +125,7 @@ int main()
 
 		//пункт b
 
-		double use = (((dmax + dmin) / 2) * ((dmax + dmin) / 2)) / 8;
+		double use = ((dmax - dmin)  * (dmax - dmin)) / 2;
 		//создание и заполнение промежуточного вектора с данными из задания 1.б
 		vector<vector<double>> prom_array;
 		vector<double> tmp;
@@ -209,7 +209,7 @@ int main()
 
 		}
 
-
+		cout << "matrix size = " << prom_array.size() << "\n";
 		cout << "The number of 1 in matrix 1:";
 		for (int i = 0; i < prom_array.size(); i++)
 		{

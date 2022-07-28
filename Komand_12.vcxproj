@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Komand_12.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\dirent.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
