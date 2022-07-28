@@ -299,12 +299,44 @@ int main()
 	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var2
 	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
 
+		double** array_var3 = new double* [prom_array.size()];
+		for (int i = 0; i < prom_array.size(); i++)
+			array_var3[i] = new double[prom_array.size()];
+		double q = (dmax - dmin) / 2;
+		double d;
+		double e;
+		bool flag;
+		vector<double> es;
+		for (int i = 0; i < prom_array.size(); ++i) {
+			for (int j = 0; j < prom_array.size(); ++j) {
+				d = array_var2[i][j] / q;
+				e = pow(d, -12) - pow(d, -6);
+				e = ((double)((round(e * 100)))) / 100;
+				array_var3[i][j] = e;
+				flag = true;
+				for (int k = 0; k < es.size(); ++k) {
+					if (e == es[k]) {
+						flag = false;
+						break;
+					}
+					if (flag) es.push_back(e);
+				}
+			}
+			double* pe = new double[es.size()];
+			for (int i = 0; i < es.size(); ++i) {
+				pe[i] = es[i] / prom_array.size();
+			}
+			double pe_len = es.size();
+		}
+
+	}
+
+
+
+
 
 
 
 
 	}
 
-
-
-}
