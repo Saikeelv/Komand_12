@@ -96,6 +96,7 @@ int main()
 	{
 		ifstream fin{ name[i] };
 		if (!fin) { cout << "FILE ERROR"; return 0; }
+		cout << "File name: " << name[i] << "\n";
 		vector<Read> a;//создае вектор в котором будет храниться полный файл
 		string line;
 		getline(fin, line);//получаем построчно файл
