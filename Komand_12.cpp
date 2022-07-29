@@ -84,7 +84,7 @@ int main()
 	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
 		//в нашем случае в папке репозитория
 	vector<string> name;
-	name = Filename();
+	name = Filename();//cделать ввод с клавы
 	name.erase(name.begin());
 	name.erase(name.begin());
 	double dmin;
@@ -291,47 +291,51 @@ int main()
 	//ПУНКТ 2 - ПОЛИНА
 	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var1
 	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
+
+	
 		double** array_kir = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++) array_kir[i] = new double[prom_array.size()];
-		
+		int k_0 = 0;
 		map<double, double> val_tmp;
 		for (int i = 0; i < prom_array.size(); i++)
 		{
-			int k_0 = 0;
+			k_0 = 0;
 			for (int j = 0; j < prom_array.size(); j++)
 			{
-				if (i != j)
-				{
+				
 					if (array_var1[i][j])
 					{
 						array_kir[i][j] = -1;
 						k_0++;
 					}
-				}
+					else array_kir[i][j] = 0;
+				
 
 			}
 			array_kir[i][i] = k_0;
 			val_tmp[k_0]++;
 
 		}
-		for (auto x : val_tmp)
-		{
-			val_tmp[x.first] = x.second / prom_array.size();
-		}
+		
+		
 
-		for (int i = 0; i <30; i++)
+		for (int i = 0; i < 64; i++)
 		{
 
-			for (int j = 0; j <30; j++)
+			for (int j = 0; j < 64; j++)
 			{
 
-				cout << array_kir[i][i] << " ";
+				cout << array_kir[i][j] << " ";
 			}
 			cout << "\n";
 
 		}
-
-
+		
+		for (auto x : val_tmp)
+		{
+			val_tmp[x.first] = x.second / prom_array.size();
+		}
+		
 
 
 
