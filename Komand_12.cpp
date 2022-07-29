@@ -83,6 +83,7 @@ int main()
 
 	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
 		//в нашем случае в папке репозитория
+//C:/Users/User/Desktop/Files_for_lab
 	vector<string> name;
 	name = Filename();//cделать ввод с клавы
 	name.erase(name.begin());
@@ -317,8 +318,12 @@ int main()
 			val_tmp[k_0]++;
 
 		}
-		
-		
+		for (auto x : val_tmp)
+		{
+			val[x.first] = x.second / prom_array.size();
+			
+		}
+		/*
 		cout << "Matrix Kir" << "\n";
 		for (int i = 0; i < 64; i++)
 		{
@@ -332,55 +337,72 @@ int main()
 
 		}
 		
-		for (auto x : val_tmp)
-		{
-			val[x.first] = x.second / prom_array.size();
-			
-		}
+		
 		cout << "Veroyatnost Kir" << "\n";
 		for (int i = 0; i < val.size(); i++)
 		{
 			cout << i<<" " << val[i] << "\n";
 
 		}
-
+		*/
 	//ПУНКТ 3 - ЛЕНА
 	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var2
 	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
 
-		double q = (dmax - dmin) / 2;
+		double q = (dmax + dmin) / 2;
 		double d;
-		double e;
+		
 		bool flag;
 		vector<double> es;
+		double exel;
 		double** array_var3 = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++)
 			array_var3[i] = new double[prom_array.size()];
+
 		for (int i = 0; i < prom_array.size(); ++i) {
 			for (int j = 0; j < prom_array.size(); ++j) {
 				d = array_var2[i][j] / q;
-				e = pow(d, -12) - pow(d, -6);
-				e = ((double)((round(e * 100)))) / 100;
-				array_var3[i][j] = e;
+				if (array_var2[i][j] != 0)
+				{
+					double e = (round(((1 / d * d * d * d * d * d * d * d * d * d * d * d) - (1 / (d * d * d * d * d * d)) * 100))) / 100;
+					array_var3[i][j] = e;
+					exel = e;
+				}
+				else array_var3[i][j] = 0;
+				
 			}
 		}
+		
 		flag = true;
 		for (int k = 0; k < es.size(); ++k) {
-			if (e == es[k]) {
+			if (exel == es[k]) {
 				flag = false;
 				break;
 			}
-			if (flag) es.push_back(e);
+			if (flag) es.push_back(exel);
 		}
 		double* pe = new double[es.size()];
 		for (int i = 0; i < es.size(); ++i) {
 			pe[i] = es[i] / prom_array.size();
 		}
-
+		
 		//318-325 мы отбираем различные значения энергий и записываем их в es
 		// 326-330 создаём массив размерами равными вектору различных энергий es и создаём одномерный массив, чтобы записать туда вероятность
+		/*
+		cout << "matrix of energy\n";
+		for (int i = 0; i <30; ++i) {
+			for (int j = 0; j < 30; ++j)
+			{
+				cout << array_var3[i][j] << " ";
+			}
+			cout << "\n";
 
-
+		}
+		*/
+		cout << "veroyatnosty\n";
+		for (int i = 0; i < es.size(); ++i) {
+			cout << pe[i] << " ";
+		}
 
 
 	}
