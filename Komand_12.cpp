@@ -80,8 +80,6 @@ vector<string> Filename()
 }
 int main()
 {
-	vector<string> str {"data- (22)", "data- (44)", "data- (88)", "data- (176)"};
-	ofstream fout; // для заполнения xml файла
 
 	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
 		//в нашем случае в папке репозитория
@@ -106,7 +104,11 @@ int main()
 		getline(fin, line);//получаем построчно файл
 		for (Read x; fin >> x; ) a.push_back(x);
 		//
-		fout.open( str[i] + ".xml");
+		auto it = name[i].find(".");
+		string name_xml = name[i];
+		name_xml.erase(it);
+		ofstream fout; // для заполнения xml файла
+		fout.open( name_xml + ".xml");
 		fout << "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n"; // пролог 
 		fout << "<INFO>\n"; // создание корня xml файла 
 		//
@@ -451,9 +453,9 @@ int main()
 		}
 
 		fout << "\t</veroyatnosty>\n";
-		
+		fout << "</INFO>";
 	}
-	fout << "</INFO>";
+
 
 }
 
