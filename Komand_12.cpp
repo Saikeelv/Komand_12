@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <cmath>
 #include <vector>
+#include <map>
 using namespace std;
 //класс для чтения файлов
 class Read {
@@ -62,7 +63,7 @@ vector<string> Filename()
 {
 	setlocale(LC_CTYPE, "rus");
 	vector<string> name;
-	DIR* mydir = opendir("C:/Users/User/Desktop/summ practics/files"); // напиши адрес папки, в которой хранятся файлы(только файлы)
+	DIR* mydir = opendir("C:/Users/User/Desktop/Files_for_lab"); // напиши адрес папки, в которой хранятся файлы(только файлы)
 	//так же все эти файлы должны находиться в одной папке с файлом .срр(тоесть будет две папки)
 	if (mydir == NULL) {
 		perror("opendir");
@@ -290,6 +291,45 @@ int main()
 	//ПУНКТ 2 - ПОЛИНА
 	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var1
 	// РАЗМЕР НАХОДИТСЯ ВОТ ТАК: prom_array.size()
+		double** array_kir = new double* [prom_array.size()];
+		for (int i = 0; i < prom_array.size(); i++) array_kir[i] = new double[prom_array.size()];
+		
+		map<double, double> val_tmp;
+		for (int i = 0; i < prom_array.size(); i++)
+		{
+			int k_0 = 0;
+			for (int j = 0; j < prom_array.size(); j++)
+			{
+				if (i != j)
+				{
+					if (array_var1[i][j])
+					{
+						array_kir[i][j] = -1;
+						k_0++;
+					}
+				}
+
+			}
+			array_kir[i][i] = k_0;
+			val_tmp[k_0]++;
+
+		}
+		for (auto x : val_tmp)
+		{
+			val_tmp[x.first] = x.second / prom_array.size();
+		}
+
+		for (int i = 0; i <30; i++)
+		{
+
+			for (int j = 0; j <30; j++)
+			{
+
+				cout << array_kir[i][i] << " ";
+			}
+			cout << "\n";
+
+		}
 
 
 
