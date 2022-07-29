@@ -297,6 +297,7 @@ int main()
 		for (int i = 0; i < prom_array.size(); i++) array_kir[i] = new double[prom_array.size()];
 		int k_0 = 0;
 		map<double, double> val_tmp;
+		map<double, double> val;
 		for (int i = 0; i < prom_array.size(); i++)
 		{
 			k_0 = 0;
@@ -318,7 +319,7 @@ int main()
 		}
 		
 		
-
+		cout << "Matrix Kir" << "\n";
 		for (int i = 0; i < 64; i++)
 		{
 
@@ -333,11 +334,15 @@ int main()
 		
 		for (auto x : val_tmp)
 		{
-			val_tmp[x.first] = x.second / prom_array.size();
+			val[x.first] = x.second / prom_array.size();
+			
 		}
-		
+		cout << "Veroyatnost Kir" << "\n";
+		for (int i = 0; i < val.size(); i++)
+		{
+			cout << i<<" " << val[i] << "\n";
 
-
+		}
 
 	//ПУНКТ 3 - ЛЕНА
 	// НАЗВАНИЕ ДВУМЕРНОГО МАССИВА-ВЕКТОРА:array_var2
