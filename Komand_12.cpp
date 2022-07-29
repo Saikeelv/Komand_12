@@ -67,7 +67,7 @@ vector<string> Filename()
 	//так же все эти файлы должны находиться в одной папке с файлом .срр(тоесть будет две папки)
 	if (mydir == NULL) {
 		perror("opendir");
-	}
+	} 
 	struct dirent* entry;
 
 	while (entry = readdir(mydir)) {
@@ -82,7 +82,8 @@ int main()
 {
 
 	ofstream fout{ "XMLFile.xml" }; // для заполнения xml файла
-	fout << "<mains>\n"; // создание корня xml файла 
+	fout << "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n";
+	fout << "<INFO>\n"; // создание корня xml файла 
 
 	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
 		//в нашем случае в папке репозитория
@@ -327,8 +328,9 @@ int main()
 			
 		}
 		
-
-		fout << "\t<Matrix_Kir>" << "\n"; // добавление дочернего элемента 
+		//
+		fout << "\t<Matrix_Kir>" << "\n"; // добавление дочернего элемента - "матрица Кирхгоффа"
+		//
 		for (int i = 0; i < prom_array.size(); i++)
 		{
 
@@ -342,7 +344,7 @@ int main()
 		}
 		fout << "\t</Matrix_Kir>\n";
 
-		cout << "Matrix Kir" << "\n";
+		/*cout << "Matrix Kir" << "\n";
 		for (int i = 0; i < 64; i++)
 		{
 
@@ -353,9 +355,18 @@ int main()
 			}
 			cout << "\n";
 
+		}*/
+		
+		//
+		fout << "\t<Veroyatnost_Kir>" << "\n"; //  добавление дочернего элемента - "вероятность валентностей узлов"
+		//
+		for (int i = 0; i < val.size(); i++)
+		{
+			fout << i << " " << val[i] << "\n";
+
 		}
-		
-		
+		fout << "\t</Veroyatnost_Kir>" << "\n";
+
 		cout << "Veroyatnost Kir" << "\n";
 		for (int i = 0; i < val.size(); i++)
 		{
@@ -404,10 +415,21 @@ int main()
 			pe[i] = es[i] / prom_array.size();
 		}
 		
+		//
+		fout << "\t<matrix_of_energy>\n"; // добавление дочернего элемента - "матрица энергий"
+		//
+		for (int i = 0; i < prom_array.size(); ++i) {
+			for (int j = 0; j < prom_array.size(); ++j)
+			{
+				fout << array_var3[i][j] << " ";
+			}
+			fout << "\n";
+		}
+		fout << "\t</matrix_of_energy>\n";
+		
 		//318-325 мы отбираем различные значения энергий и записываем их в es
 		// 326-330 создаём массив размерами равными вектору различных энергий es и создаём одномерный массив, чтобы записать туда вероятность
-		
-		cout << "matrix of energy\n";
+		/*cout << "matrix of energy\n";
 		for (int i = 0; i <30; ++i) {
 			for (int j = 0; j < 30; ++j)
 			{
@@ -415,22 +437,21 @@ int main()
 			}
 			cout << "\n";
 
-		}
+		}*/
 		
+		//
+		fout << "\t<veroyatnosty>\n"; // добавление дочернего элемента - "вероятность"
+		//
+
 		cout << "veroyatnosty\n";
 		for (int i = 0; i < es.size(); ++i) {
 			cout << pe[i] << " ";
 		}
 
-
+		fout << "\t</veroyatnosty>\n";
+		
 	}
+	fout << "</INFO>";
 
-
-
-
-
-
-
-
-	}
+}
 
