@@ -80,10 +80,8 @@ vector<string> Filename()
 }
 int main()
 {
-
-	ofstream fout{ "XMLFile.xml" }; // для заполнения xml файла
-	fout << "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n";
-	fout << "<INFO>\n"; // создание корня xml файла 
+	vector<string> str {"data- (22)", "data- (44)", "data- (88)", "data- (176)"};
+	ofstream fout; // для заполнения xml файла
 
 	//входные файлы должны храниться в той же папке, что и файл .срр + должна быть скачана еще одна папка с этими файлами(именно её адрес мы пишем в функции выше)
 		//в нашем случае в папке репозитория
@@ -107,7 +105,11 @@ int main()
 		string line;
 		getline(fin, line);//получаем построчно файл
 		for (Read x; fin >> x; ) a.push_back(x);
-
+		//
+		fout.open( str[i] + ".xml");
+		fout << "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n"; // пролог 
+		fout << "<INFO>\n"; // создание корня xml файла 
+		//
 		int n = 5; //колличество столбцов в массиве
 		double** array = new double* [a.size()]; //создание двумерного массива, колво строк = размеру вектора
 		for (int i = 0; i < a.size(); i++) array[i] = new double[n];
