@@ -63,7 +63,7 @@ vector<string> Filename()
 {
 	setlocale(LC_CTYPE, "rus");
 	vector<string> name;
-	DIR* mydir = opendir("C:/Users/ADMIN/Desktop/dev/gg/Files_for_lab"); // напиши адрес папки, в которой хранятся файлы(только файлы)
+	DIR* mydir = opendir("C:/Users/User/Desktop/Files_for_lab"); // напиши адрес папки, в которой хранятся файлы(только файлы)
 	//так же все эти файлы должны находиться в одной папке с файлом .срр(тоесть будет две папки)
 	if (mydir == NULL) {
 		perror("opendir");
@@ -384,10 +384,8 @@ int main()
 
 		double q = (dmax + dmin) / 2;
 		double d;
-		
-		bool flag;
-		vector<double> es;
-		double exel;
+		map<double, double> x;
+
 		double** array_var3 = new double* [prom_array.size()];
 		for (int i = 0; i < prom_array.size(); i++)
 			array_var3[i] = new double[prom_array.size()];
@@ -399,25 +397,20 @@ int main()
 				{
 					double e = (round(((1 / d * d * d * d * d * d * d * d * d * d * d * d) - (1 / (d * d * d * d * d * d)) * 100))) / 100;
 					array_var3[i][j] = e;
-					exel = e;
+					if(i==j)
+						x[e]++;
+					else
+						x[e]++;
+						x[e]++;
+
 				}
 				else array_var3[i][j] = 0;
+				
 				
 			}
 		}
 		
-		flag = true;
-		for (int k = 0; k < es.size(); ++k) {
-			if (exel == es[k]) {
-				flag = false;
-				break;
-			}
-			if (flag) es.push_back(exel);
-		}
-		double* pe = new double[es.size()];
-		for (int i = 0; i < es.size(); ++i) {
-			pe[i] = es[i] / prom_array.size();
-		}
+		
 		
 		//
 		fout << "\t<matrix_of_energy>\n"; // добавление дочернего элемента - "матрица энергий"
@@ -446,11 +439,10 @@ int main()
 		//
 		fout << "\t<veroyatnosty>\n"; // добавление дочернего элемента - "вероятность"
 		//
-
-		cout << "veroyatnosty\n";
-		for (int i = 0; i < es.size(); ++i) {
-			cout << pe[i] << " ";
-		}
+		for (auto a : x)
+			fout <<  a.second/prom_array.size() << "\n";
+		
+		
 
 		fout << "\t</veroyatnosty>\n";
 		fout << "</INFO>";
