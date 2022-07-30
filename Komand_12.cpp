@@ -437,11 +437,13 @@ int main()
 		}*/
 		
 		//
+		
+		
+
 		fout << "\t<veroyatnosty>\n"; // добавление дочернего элемента - "вероятность"
 		//
 		for (auto a : x)
 			fout <<  a.second/prom_array.size() << "\n";
-		
 		
 
 		fout << "\t</veroyatnosty>\n";
