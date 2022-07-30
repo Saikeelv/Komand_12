@@ -437,8 +437,9 @@ int main()
 		}*/
 		
 		//
-		
-		
+		cout << "\tveroyatnosty\n";
+		for (auto a : x)
+			cout << a.second / prom_array.size() << "\n";
 
 		fout << "\t<veroyatnosty>\n"; // добавление дочернего элемента - "вероятность"
 		//
