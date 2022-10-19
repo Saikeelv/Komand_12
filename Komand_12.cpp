@@ -135,7 +135,7 @@ int main()
 		*/
 
 		//пункт b
-
+		////
 		double use = ((dmax - dmin)  * (dmax - dmin)) / 2;
 		//создание и заполнение промежуточного вектора с данными из задания 1.б
 		vector<vector<double>> prom_array;
